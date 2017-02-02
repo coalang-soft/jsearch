@@ -78,5 +78,10 @@ public class JSearchEngine<R> {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "JSearchEngine [index=" + index + "]";
+	}
 	
 }
