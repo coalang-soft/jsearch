@@ -1,1 +1,4 @@
 github coalang-soft coalib-java
+dir-create ./jsearch/standalone-src
+dir-copy ./jsearch/src ./jsearch/standalone-src
+dir-copy ./coalib-java/src ./jsearch/standalone-src
