@@ -12,6 +12,10 @@ public class JSearchResult<T> implements Comparable<JSearchResult<T>>{
 	void upgrade(){
 		rank++;
 	}
+	
+	public int getRank(){
+		return rank;
+	}
 
 	@Override
 	public int compareTo(JSearchResult<T> other) {
