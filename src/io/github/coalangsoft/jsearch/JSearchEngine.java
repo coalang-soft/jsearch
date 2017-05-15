@@ -2,16 +2,20 @@ package io.github.coalangsoft.jsearch;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import io.github.coalangsoft.lib.data.ImutablePair;
 import io.github.coalangsoft.lib.data.Pair;
 
 public class JSearchEngine<R> {
 	
-	private ArrayList<Pair<String, ArrayList<R>>> index;
+	private List<Pair<String, List<R>>> index;
 	
 	public JSearchEngine(){
-		index = new ArrayList<Pair<String, ArrayList<R>>>();
+		index = new ArrayList<Pair<String, List<R>>>();
+	}
+	public JSearchEngine(List<Pair<String,List<R>>> l){
+		this.index = l;
 	}
 	
 	public void add(String key, R value){
@@ -19,13 +23,13 @@ public class JSearchEngine<R> {
 			return;
 		}
 		for(int i = 0; i < index.size(); i++){
-			Pair<String, ArrayList<R>> p = index.get(i);
+			Pair<String, List<R>> p = index.get(i);
 			if(key.equals(p.getA())){
 				p.getB().add(value);
 				return;
 			}
 		}
-		Pair<String, ArrayList<R>> p = new ImutablePair<String, ArrayList<R>>(key, new ArrayList<R>());
+		Pair<String, List<R>> p = new ImutablePair<String, List<R>>(key, new ArrayList<R>());
 		p.getB().add(value);
 		index.add(p);
 	}
@@ -40,7 +44,7 @@ public class JSearchEngine<R> {
 				continue;
 			}
 			for(int k = 0; k < index.size(); k++){
-				Pair<String, ArrayList<R>> p = index.get(k);
+				Pair<String, List<R>> p = index.get(k);
 				if(p.getA().toLowerCase().contains(q.toLowerCase())){
 					registerResult(p.getB(), result, values);
 				}
@@ -51,8 +55,8 @@ public class JSearchEngine<R> {
 		return result;
 	}
 
-	private void registerResult(ArrayList<R> raw, ArrayList<JSearchResult<R>> result,
-			ArrayList<R> values) {
+	private void registerResult(List<R> raw, List<JSearchResult<R>> result,
+			List<R> values) {
 		for(int i = 0; i < raw.size(); i++){
 			R val = raw.get(i);
 			if(values.contains(val)){
@@ -72,9 +76,9 @@ public class JSearchEngine<R> {
 	
 	public void alias(String query, String alias){
 		for(int i = 0; i < index.size(); i++){
-			Pair<String, ArrayList<R>> p = index.get(i);
+			Pair<String, List<R>> p = index.get(i);
 			if(p.getA().toLowerCase().contains(query.toLowerCase())){
-				index.add(new ImutablePair<String, ArrayList<R>>(alias, p.getB()));
+				index.add(new ImutablePair<String, List<R>>(alias, p.getB()));
 			}
 		}
 	}
