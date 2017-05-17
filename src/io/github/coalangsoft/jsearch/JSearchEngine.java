@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.github.coalangsoft.lib.data.Func;
 import io.github.coalangsoft.lib.data.ImutablePair;
 import io.github.coalangsoft.lib.data.Pair;
 
 public class JSearchEngine<R> {
-	
+
 	private List<Pair<String, List<R>>> index;
 	
 	public JSearchEngine(){
@@ -17,7 +18,13 @@ public class JSearchEngine<R> {
 	public JSearchEngine(List<Pair<String,List<R>>> l){
 		this.index = l;
 	}
-	
+
+	public void forAllKeys(Func<String,Object> f){
+		for(int i = 0; i < index.size(); i++){
+			f.call(index.get(i).getA());
+		}
+	}
+
 	public void add(String key, R value){
 		if(key == null){
 			return;
