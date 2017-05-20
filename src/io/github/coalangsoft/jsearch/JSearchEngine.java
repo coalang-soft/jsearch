@@ -10,7 +10,12 @@ import io.github.coalangsoft.lib.data.Pair;
 
 public class JSearchEngine<R> {
 
+	{
+		listeners = new ArrayList<Func<String,Object>>();
+	}
+	
 	private List<Pair<String, List<R>>> index;
+	private List<Func<String,Object>> listeners;
 	
 	public JSearchEngine(){
 		index = new ArrayList<Pair<String, List<R>>>();
@@ -23,6 +28,8 @@ public class JSearchEngine<R> {
 		for(int i = 0; i < index.size(); i++){
 			f.call(index.get(i).getA());
 		}
+		this.listeners.add(f);
+		System.out.println(listeners);
 	}
 
 	public void add(String key, R value){
@@ -39,6 +46,7 @@ public class JSearchEngine<R> {
 		Pair<String, List<R>> p = new ImutablePair<String, List<R>>(key, new ArrayList<R>());
 		p.getB().add(value);
 		index.add(p);
+		listeners(key);
 	}
 	
 	public ArrayList<JSearchResult<R>> query(String... query){
@@ -88,8 +96,15 @@ public class JSearchEngine<R> {
 				index.add(new ImutablePair<String, List<R>>(alias, p.getB()));
 			}
 		}
+		listeners(alias);
+		System.out.println(listeners);
 	}
 
+	private void listeners(String key) {
+		for(int i = 0; i < listeners.size(); i++){
+			listeners.get(i).call(key);
+		}
+	}
 	@Override
 	public String toString() {
 		return "JSearchEngine [index=" + index + "]";
