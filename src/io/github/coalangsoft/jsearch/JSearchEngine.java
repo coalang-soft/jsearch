@@ -29,7 +29,6 @@ public class JSearchEngine<R> {
 			f.call(index.get(i).getA());
 		}
 		this.listeners.add(f);
-		System.out.println(listeners);
 	}
 
 	public void add(String key, R value){
@@ -97,7 +96,6 @@ public class JSearchEngine<R> {
 			}
 		}
 		listeners(alias);
-		System.out.println(listeners);
 	}
 
 	private void listeners(String key) {
