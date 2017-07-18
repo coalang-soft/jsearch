@@ -1,4 +1,4 @@
-#JSearch - Search Engine Base for Java
+## JSearch - Search Engine Base for Java
 A Searchengine is useful for many things (Searching for Websites, Files, Texts, ...). With JSearch, you can setup a Searchengine easily:
 
 ```
@@ -15,5 +15,5 @@ se.addAll("circle", "pi", "tau");
 System.out.println(se.query("circle", "variable"));
 ```
 
-##JSearch extensions
+### JSearch extensions
 [JSearchFX - Find, highlight and select JavaFX Nodes](https://github.com/coalang-soft/jsearchfx)
