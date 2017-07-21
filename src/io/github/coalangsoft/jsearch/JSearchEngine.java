@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import io.github.coalangsoft.lib.data.Func;
-import io.github.coalangsoft.lib.data.ImutablePair;
+import io.github.coalangsoft.lib.data.ImmutablePair;
 import io.github.coalangsoft.lib.data.Pair;
 
 /**
@@ -75,7 +75,7 @@ public class JSearchEngine<R> {
 				return;
 			}
 		}
-		Pair<String, List<R>> p = new ImutablePair<String, List<R>>(key, new ArrayList<R>());
+		Pair<String, List<R>> p = new ImmutablePair<String, List<R>>(key, new ArrayList<R>());
 		p.getB().add(value);
 		index.add(p);
 		listeners(key);
@@ -151,7 +151,7 @@ public class JSearchEngine<R> {
 		for(int i = 0; i < index.size(); i++){
 			Pair<String, List<R>> p = index.get(i);
 			if(p.getA().toLowerCase().contains(query.toLowerCase())){
-				index.add(new ImutablePair<String, List<R>>(alias, p.getB()));
+				index.add(new ImmutablePair<String, List<R>>(alias, p.getB()));
 			}
 		}
 		listeners(alias);
