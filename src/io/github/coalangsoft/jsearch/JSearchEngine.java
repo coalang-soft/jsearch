@@ -21,7 +21,7 @@ public class JSearchEngine<R> {
 	}
 	
 	//the search index. Every entry is a pair of the query and the matching results.
-	private List<Pair<String, List<R>>> index;
+	private List<ImmutablePair<String, List<R>>> index;
 	//a list of listeners. These are used when a new entry (query string) is added to this search engine.
 	private List<Func<String,Object>> listeners;
 	
@@ -29,14 +29,14 @@ public class JSearchEngine<R> {
 	 * Creates an "empty" search engine.
 	 */
 	public JSearchEngine(){
-		index = new ArrayList<Pair<String, List<R>>>();
+		index = new ArrayList<ImmutablePair<String, List<R>>>();
 	}
 	/**
 	 * Creates a pre-filled search engine.
 	 * @param l the search index to start with.
 	 * Every entry is a pair of the query and the matching results.
 	 */
-	public JSearchEngine(List<Pair<String,List<R>>> l){
+	public JSearchEngine(List<ImmutablePair<String,List<R>>> l){
 		this.index = l;
 	}
 
@@ -75,7 +75,7 @@ public class JSearchEngine<R> {
 				return;
 			}
 		}
-		Pair<String, List<R>> p = new ImmutablePair<String, List<R>>(key, new ArrayList<R>());
+		ImmutablePair<String, List<R>> p = new ImmutablePair<String, List<R>>(key, new ArrayList<R>());
 		p.getB().add(value);
 		index.add(p);
 		listeners(key);
@@ -165,6 +165,10 @@ public class JSearchEngine<R> {
 	@Override
 	public String toString() {
 		return "JSearchEngine [index=" + index + "]";
+	}
+	
+	private List<ImmutablePair<String, List<R>>> getIndex(){
+		return index;
 	}
 	
 }
